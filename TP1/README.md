@@ -513,3 +513,12 @@ PING conteneur_flopesque (172.18.0.3) 56(84) bytes of data.
 64 bytes from compose-conteneur_flopesque-1.compose_default (172.18.0.3): icmp_seq=6 ttl=64 time=0.084 ms
 ```
 
+### Rendu
+
+`docker compose up -d`
+
+`curl localhost:8000/users`
+> [{"favorite_insult":"insulte","id":1,"name":"Francois Chayrou"},{"favorite_insult":"insulte","id":2,"name":"Chalerie Pecresse"},{"favorite_insult":"insulte","id":3,"name":"Chemanuel Chacron"},{"favorite_insult":"insulte","id":4,"name":"Bruno Chateilleau"},{"favorite_insult":"insulte","id":5,"name":"Rima Chassan"}]
+
+`curl localhost:8000/user/3`
+> {"favorite_insult":"insulte","id":3,"name":"Chemanuel Chacron"}
