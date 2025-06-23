@@ -315,7 +315,7 @@
 
 ### Construire une image
 
-#### Build la meow-api
+#### A.Build la meow-api
 
 ##### Recuperer le Dockerfile
 
@@ -372,7 +372,7 @@
 
 `docker run -d -p 8000:8000 meow-api`
 
-#### Packagez vous-meme une app
+#### B.Packagez vous-meme une app
 
 ##### Ecrire un Dockerfile
 
@@ -442,3 +442,74 @@ CMD ["python", "app.py"]
 `docker run python_app:version_de_ouf`
 
 `Cet exemple d'application est vraiment naze 👎`
+
+#### C.Ecrire votre propre Dockerfile
+
+##### Ecrire le Dockerfile
+
+```
+FROM nginx:alpine
+
+WORKDIR /usr/share/nginx/html
+
+COPY ./Sotum .
+```
+
+`docker build . -t oswin_jeu_sotum:v1`
+
+`docker run -d -p 7000:80 oswin_jeu_sotum:v1`
+
+##### Publier l'image
+
+`docker tag oswin_jeu_sotum:v1 oswinfreyr/oswin_jeu_sotum:v1`
+
+`docker push oswinfreyr/oswin_jeu_sotum:v1`
+
+`https://hub.docker.com/r/oswinfreyr/oswin_jeu_sotum`
+
+
+## Part 3: Compose
+
+### Getting started
+
+#### Run it
+
+`docker compose up -d`
+
+```
+[+] Running 2/2
+ ✔ conteneur_flopesque Pulled 2.8s
+ ✔ conteneur_nul Pulled 2.8s
+[+] Running 3/3
+ ✔ Network compose_default                  Created 0.2s
+ ✔ Container compose-conteneur_flopesque-1  Started 0.6s
+ ✔ Container compose-conteneur_nul-1        Started                                                                                                    
+ ```
+
+`docker compose ps`
+
+|NAME|IMAGE|COMMAND|SERVICE|CREATED|STATUS|PORTS|
+|---|---|---|---|---|---|---|
+|compose-conteneur_flopesque-1|debian|"sleep 9999"|conteneur_flopesque|22 seconds ago|Up 22 seconds| |
+|compose-conteneur_nul-1|debian|"sleep 9999"|conteneur_nul|22 seconds ago|Up 22 seconds| |
+
+#### Networking
+
+`docker compose exec -it conteneur_nul bash`
+
+`apt-get update -y`
+
+`apt-get install -y iputils-ping`
+
+`ping conteneur_flopesque`
+
+```
+PING conteneur_flopesque (172.18.0.3) 56(84) bytes of data.
+64 bytes from compose-conteneur_flopesque-1.compose_default (172.18.0.3): icmp_seq=1 ttl=64 time=5.10 ms
+64 bytes from compose-conteneur_flopesque-1.compose_default (172.18.0.3): icmp_seq=2 ttl=64 time=0.111 ms
+64 bytes from compose-conteneur_flopesque-1.compose_default (172.18.0.3): icmp_seq=3 ttl=64 time=0.081 ms
+64 bytes from compose-conteneur_flopesque-1.compose_default (172.18.0.3): icmp_seq=4 ttl=64 time=0.111 ms
+64 bytes from compose-conteneur_flopesque-1.compose_default (172.18.0.3): icmp_seq=5 ttl=64 time=0.105 ms
+64 bytes from compose-conteneur_flopesque-1.compose_default (172.18.0.3): icmp_seq=6 ttl=64 time=0.084 ms
+```
+

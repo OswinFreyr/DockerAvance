@@ -1,0 +1,22 @@
+services:
+  meow-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+    - "8000:${LISTEN_PORT}"
+    env_file:
+      - .env
+  db:
+    image: mysql
+    # build:
+    #   context: .
+    #   dockerfile: db.Dockerfile
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: meow
+      MYSQL_USER: meow
+      MYSQL_PASSWORD: meow
+    volumes: 
+    - ./seed.sql:/docker-entrypoint-initdb.d/seed.sql
