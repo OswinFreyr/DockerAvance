@@ -1,0 +1,25 @@
+FROM node:bullseye-slim AS base
+
+WORKDIR /app/backend
+
+COPY package.json .
+
+RUN  npm install 
+
+FROM base AS dev
+
+
+ENV ENVIRONMENT=dev
+
+CMD ["node", "app.cjs"]
+
+FROM base AS prod
+
+# Serait le dossier src s'il existait et n'aurait pas besoin de npm install à la suite 
+COPY . . 
+
+RUN  npm install 
+
+ENV ENVIRONMENT=prod
+
+ENTRYPOINT ["node", "app.cjs"]

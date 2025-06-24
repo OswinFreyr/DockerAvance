@@ -1,0 +1,11 @@
+FROM debian:bookworm
+
+RUN apt-get update && apt-get install --no-cache -y nodejs
+
+WORKDIR /app/backend
+
+COPY . .
+
+RUN  npm install 
+
+CMD ["node", "app.cjs"]
