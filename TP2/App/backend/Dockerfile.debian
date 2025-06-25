@@ -1,11 +1,22 @@
-FROM debian:bookworm
+FROM debian:12.11
 
-RUN apt-get update && apt-get install --no-cache -y nodejs
+RUN apt update && apt install -y nodejs npm && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app/backend
 
 COPY . .
 
-RUN  npm install 
+RUN useradd -ms /bin/bash bebou-backend && \
+    chown -R bebou-backend:bebou-backend /app
+
+USER bebou-backend
+
+RUN  npm install && npm cache clean --force
+
+ENV ENVIRONMENT=dev
+
+LABEL org.opencontainers.image.authors="Oswin" \
+    org.opencontainers.image.url="https://github.com/OswinFreyr/DockerAvance/blob/master/TP2/App/backend/Dockerfile.debian" \
+    org.opencontainers.image.vendor="OSWIN_:3"
 
 CMD ["node", "app.cjs"]

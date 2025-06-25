@@ -133,7 +133,7 @@ TotalMilliseconds : 19166,9694
 ```
 
 Debian: 
-`Measure-Command { docker build -f Dockerfile.alpine . -t debian:bookworm }`
+`Measure-Command { docker build -f Dockerfile.alpine . -t debian:12.11 }`
 
 ```
 Days              : 0
@@ -157,4 +157,6 @@ TotalMilliseconds : 4439,0663
 debian          bookworm         f1478431e5eb   About a minute ago   287MB
 alpine          3.22.0           73dee2a6b169   3 minutes ago        286MB
 ```
+
+## Part 4
 
